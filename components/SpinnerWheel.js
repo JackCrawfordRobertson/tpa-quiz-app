@@ -3,7 +3,7 @@
 import React from 'react';
 import './wheel.css';
 import Arrow from '../public/arrow1.svg';
-import Ellipse from '../public/ellipse1.svg';
+import Ellipse from '../public/Ellipse1.svg';
 import { quizSegments } from '../data/questions';
 import { arrowStyles, leftEllipseStyles, rightEllipseStyles } from '../components/Wheel/styles';
 
