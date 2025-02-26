@@ -70,82 +70,84 @@ export default function Page() {
     setResetWheel((prev) => !prev);
   };
 
-  return (
-    <main className="relative flex flex-row items-center justify-center min-h-screen p-0">
-      <motion.div
-        className="flex-1 flex justify-center"
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Card className="w-full max-w-lg shadow-lg border bg-card">
-          <CardContent className="text-center p-8">
-            <h1 className="text-3xl font-bold text-primary mb-4">Spin It to Win It 🎡</h1>
-            <SpinnerWheel key={resetWheel} onSpinEnd={selectNextQuestion} />
-            <p className="text-md text-muted-foreground italic mt-4 mb-4">
-              "You think you know payments? Let’s see if your brain processes as fast as your card."
-            </p>
-          </CardContent>
-        </Card>
-      </motion.div>
-
-      <motion.div
-        className="flex flex-1 items-center justify-center relative"
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Card className="w-full max-w-lg shadow-lg border bg-card p-6">
-          <CardContent>
-            <AnimatePresence mode="wait">
-              {quizCompleted ? (
-                <QuizResults score={score} restartQuiz={restartQuiz} />
-              ) : (
-                <motion.div
-                  key={selectedSegment?.label || 'default'}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <p className="text-lg font-medium text-muted-foreground mb-3">
-                    📊 Question {questionIndex + 1} of {quizSegments.length}
-                  </p>
-
-                  {selectedSegment ? (
-                    <>
-                      <h2 className="text-xl font-bold text-primary">{selectedSegment.label}</h2>
-                      <p className="text-lg mt-2 text-foreground">{selectedSegment.question}</p>
-
-                      <div className="mt-4 space-y-2">
-                        {selectedSegment.options.map((option, idx) => (
-                          <Button
-                            key={idx}
-                            onClick={() => handleAnswer(option)}
-                            className="w-full bg-destructive hover:bg-destructive-foreground"
-                          >
-                            {option}
-                          </Button>
-                        ))}
-                      </div>
-                    </>
+    return (
+      <main className="relative flex flex-col min-h-screen">
+        {/* Main content wrapper to push content above footer */}
+        <div className="flex flex-grow items-center justify-center w-full p-4">
+          {/* Left: Spinner Wheel Section */}
+          <motion.div
+            className="flex-1 flex justify-center"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Card className="w-full max-w-lg shadow-lg border bg-card">
+              <CardContent className="text-center p-8">
+                <h1 className="text-3xl font-bold text-primary mb-4">Spin It to Win It 🎡</h1>
+                <SpinnerWheel key={resetWheel} onSpinEnd={selectNextQuestion} />
+                <p className="text-md text-muted-foreground italic mt-4 mb-4">
+                  "You think you know payments? Let’s see if your brain processes as fast as your card."
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+  
+          {/* Right: Question Section */}
+          <motion.div
+            className="flex flex-1 items-center justify-center"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Card className="w-full max-w-lg shadow-lg border bg-card p-6">
+              <CardContent>
+                <AnimatePresence mode="wait">
+                  {quizCompleted ? (
+                    <QuizResults score={score} restartQuiz={restartQuiz} />
                   ) : (
-                    <p className="text-center text-muted-foreground">Spin the wheel to get a question.</p>
+                    <motion.div
+                      key={selectedSegment?.label || 'default'}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <p className="text-lg font-medium text-muted-foreground mb-3">
+                        📊 Question {questionIndex + 1} of {quizSegments.length}
+                      </p>
+  
+                      {selectedSegment ? (
+                        <>
+                          <h2 className="text-xl font-bold text-primary">{selectedSegment.label}</h2>
+                          <p className="text-lg mt-2 text-foreground">{selectedSegment.question}</p>
+  
+                          <div className="mt-4 space-y-2">
+                            {selectedSegment.options.map((option, idx) => (
+                              <Button
+                                key={idx}
+                                onClick={() => handleAnswer(option)}
+                                className="w-full bg-destructive hover:bg-destructive-foreground"
+                              >
+                                {option}
+                              </Button>
+                            ))}
+                          </div>
+                        </>
+                      ) : (
+                        <p className="text-center text-muted-foreground">Spin the wheel to get a question.</p>
+                      )}
+                    </motion.div>
                   )}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </CardContent>
-        </Card>
-      </motion.div>
-
-      {showEmojis && emojiSettings && (
-        <FallingEmojis {...emojiSettings} />
-      )}
-
-      <div className="absolute bottom-0 w-full m-0 p-0">
-        <Footer />
-      </div>
-    </main>
-  );
-}
+                </AnimatePresence>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+  
+        {/* Footer - Stays at the bottom */}
+        <div className="w-full">
+          <Footer />
+        </div>
+      </main>
+    );
+  }
