@@ -27,7 +27,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 text-sm">
           
           <Link 
-            href="https://github.com/JackCrawfordRobertson/tpa_my-quiz-app" 
+            href="https://github.com/JackCrawfordRobertson/tpa_quiz-app" 
             target="_blank" 
             className="hover:underline flex items-center space-x-2 text-gray-400 hover:text-white">
             <Github size={18} />
