@@ -40,7 +40,7 @@ export default function Page() {
     setAnimationType(isCorrect ? 'success' : 'failure');
 
     setEmojiSettings({
-      emojis: isCorrect ? ['🎉', '🎊', '💖'] : ['❌'],
+      emojis: isCorrect ? ['🎉', '🎊'] : ['❌', ['👹']],
       amount: isCorrect ? 80 : 50,
       speed: isCorrect ? 5 : 3,
       size: isCorrect ? 30 : 40,
