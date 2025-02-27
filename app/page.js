@@ -40,7 +40,7 @@ export default function Page() {
     setAnimationType(isCorrect ? 'success' : 'failure');
 
     setEmojiSettings({
-      emojis: isCorrect ? ['🎉', '🎊'] : ['❌', ['👹']],
+      emojis: isCorrect ? ['🎉', '🎊'] : ['💔', ['🙅']],
       amount: isCorrect ? 80 : 50,
       speed: isCorrect ? 5 : 3,
       size: isCorrect ? 30 : 40,
@@ -142,6 +142,17 @@ export default function Page() {
               </CardContent>
             </Card>
           </motion.div>
+
+           {/* 🎉 Confetti for correct / ❌ X rain for incorrect answers */}
+      {showEmojis && emojiSettings && (
+        <FallingEmojis
+          emojis={emojiSettings.emojis}
+          amount={emojiSettings.amount}
+          speed={emojiSettings.speed}
+          size={emojiSettings.size}
+          duration={emojiSettings.duration}
+        />
+      )}
         </div>
   
         {/* Footer - Stays at the bottom */}
